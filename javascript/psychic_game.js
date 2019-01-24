@@ -32,33 +32,35 @@ var winNum = 0;
 var loseNum = 0;
 var guessLeft = 9;
 var userGuessArr = [];
+var computerGuess = '';
 
+var setupNewGame = function() {
+    guessLeft = 9;
+    userGuessArr = [];
+    computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+}
 
 document.onkeyup = function (event) {
 
     
     var userGuess = event.key;
 
-    var computerGuess =
-        computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-    
+    console.log(computerGuess);
     userGuessArr.push(userGuess);
     document.getElementById("user-guess").innerHTML = userGuessArr.join(", ");
 
     
     if (userGuess === computerGuess) {
-        guessLeft = 9;
+
         winNum += 1;
-        userGuessArr = [];
+        setupNewGame();
     } else if (userGuess !== computerGuess) {
         guessLeft -= 1;
-        console.log(guessLeft);
+        
         
         if (guessLeft === 0) {
-            guessLeft = 9;
             loseNum += 1;
-            userGuessArr = [];
+            setupNewGame();
         }
     }
     
@@ -68,3 +70,7 @@ document.onkeyup = function (event) {
 
     document.getElementById("guess-left").textContent = guessLeft;
 };
+
+setupNewGame();
+console.log(computerGuess);
+
